@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>EV Charging Hub Predictor</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f7;
+margin:0;
+}
+
+header{
+background:#1f77b4;
+color:white;
+padding:20px;
+text-align:center;
+font-size:28px;
+}
+
+.container{
+display:flex;
+padding:30px;
+gap:30px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+flex:1;
+}
+
+button{
+background:#1f77b4;
+color:white;
+border:none;
+padding:12px 20px;
+font-size:16px;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background:#155a8a;
+}
+
+.result{
+margin-top:20px;
+font-size:20px;
+font-weight:bold;
+}
+
+.bar{
+height:20px;
+background:#ddd;
+border-radius:10px;
+margin-bottom:10px;
+}
+
+.fill{
+height:100%;
+background:#1f77b4;
+border-radius:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+⚡ EV Charging Hub Location Predictor
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h3>Upload Satellite Image</h3>
+
+<input type="file" id="imageUpload">
+
+<br><br>
+
+<img id="preview" width="100%">
+
+</div>
+
+<div class="card">
+
+<h3>Extracted Infrastructure Features</h3>
+
+<p>Commercial Activity</p>
+<div class="bar"><div id="commercial" class="fill"></div></div>
+
+<p>Traffic Density</p>
+<div class="bar"><div id="traffic" class="fill"></div></div>
+
+<p>Powerline Proximity</p>
+<div class="bar"><div id="powerline" class="fill"></div></div>
+
+<br>
+
+<button onclick="predict()">Analyze Location</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+</div>
+
+<script>
+
+document.getElementById("imageUpload").onchange = function(event){
+
+let reader = new FileReader();
+
+reader.onload = function(){
+document.getElementById("preview").src = reader.result;
+}
+
+reader.readAsDataURL(event.target.files[0]);
+
+}
+
+function predict(){
+
+// simulated feature extraction
+
+let commercial = Math.random()
+let traffic = Math.random()
+let powerline = Math.random()
+
+document.getElementById("commercial").style.width = commercial*100 + "%"
+document.getElementById("traffic").style.width = traffic*100 + "%"
+document.getElementById("powerline").style.width = powerline*100 + "%"
+
+let score = 0.4*commercial + 0.4*traffic + 0.2*powerline
+
+if(score>0.5){
+
+document.getElementById("result").innerHTML =
+"✅ Suitable Location for EV Charging Hub"
+
+}else{
+
+document.getElementById("result").innerHTML =
+"❌ Not Suitable for Charging Hub"
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>
